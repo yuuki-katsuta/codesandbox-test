@@ -153,3 +153,40 @@ arr8[0] = 100;
 console.log(arr8); //[100, 20]
 console.log(arr4); //[100, 20]
 //参照が保持されるので、参照元にも影響が出る
+
+/**
+ * mapとfilterを使った配列の処理
+ *
+ */
+const nameArr = ["yuuki", "hanahana", "tanaka"];
+// for (let index = 0; index < nameArr.length; index++) {
+//   console.log(nameArr[index]);
+// }
+//mapをつかうと
+// const nameArr2 = nameArr.map((name) => {
+//   //引数nameに配列の値が順番に渡ってくる
+//   return name;
+//   //新しい配列を生成し、値が順にってくる
+// });
+// console.log(nameArr2);
+
+//配列をループさせるやり方
+//nameArr.map((name, index) => console.log(`${index + 1}番目は${name}です`));
+
+// //filterは条件に一致したものを返す
+// //returnのあとに条件を記述する
+// const numArr = [1, 2, 3, 4, 5];
+// const newNumArr = numArr.filter((num) => {
+//   return num % 2 === 1;
+// });
+// //新しい配列を返す
+// console.log(newNumArr); //[1, 3, 5]
+
+const newNameArr = nameArr.map((name) => {
+  if (name === "yuuki") {
+    return name;
+  } else {
+    return `${name}さん`;
+  }
+});
+console.log(newNameArr);
