@@ -6,33 +6,55 @@ const onClickAdd = () => {
   const inputText = document.getElementById("add-text").value;
   document.getElementById("add-text").value = "";
 
-  //リストの追加するための必要な要素を取得
+  //追加
   //divタグ生成
   const div = document.createElement("div");
   //divタグにクラス付与
   div.className = "list-row";
-
   //liタグ生成
   const li = document.createElement("li");
   //liタグにテキストを追加
   li.innerText = inputText;
 
-  //button(完了)タグ生成
+  //完了
   const completeButton = document.createElement("button");
   completeButton.innerText = "完了";
   completeButton.addEventListener("click", () => {
-    alert();
+    //リストから削除
+    deleteFromIncompleteList(completeButton);
+
+    //完了リストへ移して、未完了から削除したい
+
+    //完了リストへ追加する要素
+    const addTarget = completeButton.parentNode;
+    //todo内容テキストを取得
+    const text = addTarget.firstElementChild.innerText;
+    //div以下を初期化
+    addTarget.textContent = null;
+    //初期化したら、liとbuttonを生成して追加したい
+    //liタグ生成
+    const li = document.createElement("li");
+    li.innerText = text;
+    //buttonタグ生成
+    const backButton = document.createElement("button");
+    backButton.innerText = "戻す";
+
+    //dib¥vタグの子要素に追加
+    addTarget.appendChild(li);
+    addTarget.appendChild(backButton);
+    console.log(addTarget);
+
+    //これらを完了リストへ追加
+    document.getElementById("complete-list").appendChild(addTarget);
   });
 
-  //削除ボタン
+  //削除
   const deleteButton = document.createElement("button");
   deleteButton.innerText = "削除";
   deleteButton.addEventListener("click", () => {
     //押された削除ボタンの親divタグをリストから削除したい
-    //削除する要素を取得
-    const deleteTarget = deleteButton.parentNode;
-    //親から子を削除＝removeChild()
-    document.getElementById("incomplete-list").removeChild(deleteTarget);
+
+    deleteFromIncompleteList(deleteButton);
   });
 
   //divタグの子要素に各要素を設定 appendChild()
@@ -48,3 +70,9 @@ const onClickAdd = () => {
 //add-button要素を取得しイベント追加
 const addButton = document.getElementById("add-button");
 addButton.addEventListener("click", () => onClickAdd());
+
+//未完了リストから削除する関数を共通化
+const deleteFromIncompleteList = (target) => {
+  const deleteTarget = target.parentNode;
+  document.getElementById("incomplete-list").removeChild(deleteTarget);
+};
